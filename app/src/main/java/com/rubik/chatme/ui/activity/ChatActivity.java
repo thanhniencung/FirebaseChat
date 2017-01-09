@@ -13,6 +13,7 @@ import com.rubik.chatme.ChatMeApplication;
 import com.rubik.chatme.R;
 import com.rubik.chatme.dao.FbUserDao;
 import com.rubik.chatme.firebase.ChatRoom;
+import com.rubik.chatme.helper.FirebaseHelper;
 import com.rubik.chatme.model.FbUser;
 import com.rubik.chatme.model.Message;
 import com.rubik.chatme.model.User;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -43,15 +45,15 @@ public class ChatActivity extends BaseActivity {
     @BindView(R.id.fragment_chat_enterMsg)
     EditText editMessage;
 
-    @BindView(R.id.fragment_chat_send)
-    ImageView ivSend;
 
     @BindView(R.id.fragment_chat_recyclerView)
     RecyclerView recyclerView;
 
     private List<Message> messageList = new ArrayList<>();
     private MessageAdapter adapter;
-    private String currentUserId;
+    private FbUser fbUser;
+    private User me;
+    private User friend;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,20 @@ public class ChatActivity extends BaseActivity {
 
         getAppComponent().inject(this);
 
-        currentUserId = fbUserDao.getFbUSer().fbId;
+        fbUserDao.getFbUSer().subscribe(new Consumer<FbUser>() {
+            @Override
+            public void accept(FbUser fbUser) throws Exception {
+                ChatActivity.this.fbUser = fbUser;
+            }
+        });
 
-        final User me = getUserInfo();
-        final User friend = (User) getIntent().getSerializableExtra(FRIEND);
+        me = FirebaseHelper.setupFirebaseUser(fbUser);
+        friend = (User) getIntent().getSerializableExtra(FRIEND);
+
         getSupportActionBar().setTitle(friend.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         chatRoom.init(me, friend);
 
         adapter = new MessageAdapter(messageList, me, friend);
@@ -75,7 +85,7 @@ public class ChatActivity extends BaseActivity {
         chatRoom.asObservable().subscribe(new Consumer<Message>() {
             @Override
             public void accept(Message message) throws Exception {
-                if (message.getWho().equals(currentUserId)) {
+                if (message.getWho().equals(fbUser.fbId)) {
                     message.setType(MessageAdapter.MSG_ME);
                 } else {
                     message.setType(MessageAdapter.MSG_FRIEND);
@@ -84,35 +94,19 @@ public class ChatActivity extends BaseActivity {
                 recyclerView.scrollToPosition(messageList.size()-1);
             }
         });
+    }
 
-        ivSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = editMessage.getText().toString().trim();
-                if (!TextUtils.isEmpty(message)) {
-                    me.sendMessage(message);
-                    editMessage.setText("");
-                }
-            }
-        });
+    @OnClick(R.id.fragment_chat_send)
+    public void sendMessageClicked() {
+        String message = editMessage.getText().toString().trim();
+        if (!TextUtils.isEmpty(message)) {
+            me.sendMessage(message);
+            editMessage.setText("");
+        }
     }
 
     @Override
     public int getLayout() {
         return R.layout.activity_chat;
-    }
-
-    private User getUserInfo() {
-        FbUser fbUser = fbUserDao.getFbUSer();
-        if (fbUser == null) {
-            return null;
-        }
-        User user = new User();
-        user.setName(fbUser.name);
-        user.setId(fbUser.fbId);
-        user.setGender(fbUser.gender);
-        user.setEmail(fbUser.email);
-        user.setAvatar(String.format("https://graph.facebook.com/%s/picture?type=large", fbUser.fbId));
-        return user;
     }
 }

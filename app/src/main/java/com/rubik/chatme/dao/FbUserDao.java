@@ -36,10 +36,12 @@ public class FbUserDao extends BaseDao {
         }).compose(RxFuncions.<Long>applySchedulers());
     }
 
-    public FbUser getFbUSer() {
-        try {
-            return FBUserRelation().selector().get(0);
-        } catch (Exception e) {}
-        return null;
+    public Flowable<FbUser> getFbUSer() {
+        return Flowable.defer(new Callable<Flowable<FbUser>>() {
+            @Override
+            public Flowable<FbUser> call() throws Exception {
+                return Flowable.just(FBUserRelation().selector().get(0));
+            }
+        });
     }
 }

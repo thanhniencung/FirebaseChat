@@ -88,7 +88,9 @@ public class LoginActivity extends  BaseActivity implements
                                 .subscribe(new Consumer<Long>() {
                             @Override
                             public void accept(Long aLong) throws Exception {
-                                startActivity(new Intent(LoginActivity.this, FriendListActivity.class));
+                                startActivity(new Intent(LoginActivity.this,
+                                        FriendListActivity.class));
+                                finish();
                             }
                         });
                     }
