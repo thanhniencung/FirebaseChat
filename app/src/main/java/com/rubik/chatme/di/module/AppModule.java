@@ -1,14 +1,11 @@
 package com.rubik.chatme.di.module;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.github.gfx.android.orma.migration.ManualStepMigration;
 import com.rubik.chatme.ChatMeApplication;
 import com.rubik.chatme.firebase.ChatRoom;
 import com.rubik.chatme.firebase.FriendList;
 import com.rubik.chatme.model.OrmaDatabase;
-import com.rubik.chatme.model.User;
 
 import javax.inject.Singleton;
 

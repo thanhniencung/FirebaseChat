@@ -1,6 +1,5 @@
 package com.rubik.chatme.helper;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.rubik.chatme.ChatMeApplication;
