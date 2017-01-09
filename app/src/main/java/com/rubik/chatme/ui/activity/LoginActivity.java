@@ -37,7 +37,7 @@ import io.reactivex.functions.Consumer;
  * Created by kiennguyen on 1/1/17.
  */
 
-public class LoginActivity extends  AppCompatActivity implements
+public class LoginActivity extends  BaseActivity implements
         FacebookCallback<LoginResult> {
 
     private CallbackManager callbackManager;
@@ -51,10 +51,8 @@ public class LoginActivity extends  AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        ChatMeApplication.getContext().getAppComponent().inject(this);
-        ButterKnife.bind(this);
+        getAppComponent().inject(this);
 
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, this);
@@ -62,6 +60,11 @@ public class LoginActivity extends  AppCompatActivity implements
         ViewHelper.setStateToView(findViewById(R.id.btn_login_fb));
         ImageLoader.loadImageWithTransform(R.drawable.icon_login,
                 ivBgLogin, new CircleTransform());
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_login;
     }
 
     @OnClick(R.id.btn_login_fb)

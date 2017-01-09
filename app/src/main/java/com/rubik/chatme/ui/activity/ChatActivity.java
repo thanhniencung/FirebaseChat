@@ -56,10 +56,8 @@ public class ChatActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
 
-        ButterKnife.bind(this);
-        ChatMeApplication.getContext().getAppComponent().inject(this);
+        getAppComponent().inject(this);
 
         currentUserId = fbUserDao.getFbUSer().fbId;
 
@@ -97,6 +95,11 @@ public class ChatActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_chat;
     }
 
     private User getUserInfo() {

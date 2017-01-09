@@ -44,10 +44,8 @@ public class FriendListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_list);
 
-        ButterKnife.bind(this);
-        ChatMeApplication.getContext().getAppComponent().inject(this);
+        getAppComponent().inject(this);
 
         getSupportActionBar().setTitle("Friends");
 
@@ -77,6 +75,11 @@ public class FriendListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_friend_list;
     }
 
     private User getUserInfo() {
