@@ -1,9 +1,5 @@
 package com.rubik.chatme.dao;
 
-import android.util.Log;
-
-import org.reactivestreams.Subscriber;
-
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;

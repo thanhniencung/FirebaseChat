@@ -4,12 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.rubik.chatme.ChatMeApplication;
 import com.rubik.chatme.R;
 import com.rubik.chatme.dao.FbUserDao;
 import com.rubik.chatme.firebase.ChatRoom;
@@ -25,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
