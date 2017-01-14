@@ -2,6 +2,7 @@ package com.rubik.chatme.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.facebook.CallbackManager;
@@ -62,13 +63,16 @@ public class LoginActivity extends BaseActivity implements
             @Override
             public void onNext(FbUser fbUser) {
                 if (verifyUser(fbUser)) {
+                    Log.i("onNext", "login successfuly");
                     gotoFriendListActivity();
+                } else {
+                    Log.i("onNext", "login fail");
                 }
             }
 
             @Override
             public void onError(Throwable t) {
-
+                Log.i("onError", t.getMessage());
             }
 
             @Override
@@ -83,9 +87,9 @@ public class LoginActivity extends BaseActivity implements
             return false;
         }
         if (fbUser.fbId.equals(null) ||
-                fbUser.email.equals(null) ||
-                fbUser.gender.equals(null) ||
-                fbUser.name.equals(null)) {
+            fbUser.email.equals(null) ||
+            fbUser.gender.equals(null) ||
+            fbUser.name.equals(null)) {
             return false;
         }
         return true;
