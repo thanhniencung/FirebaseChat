@@ -11,7 +11,8 @@ public class Message {
     private long time;
     private int type;
 
-    public Message() {}
+    public Message() {
+    }
 
     public Message(String name, String message, String who, long time, int type) {
         this.name = name;

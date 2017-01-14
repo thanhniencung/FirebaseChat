@@ -19,7 +19,8 @@ public class User implements Serializable {
 
     private DatabaseReference root;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String avatar, String gender, String email, String id) {
         this.name = name;
@@ -76,7 +77,7 @@ public class User implements Serializable {
     public void sendMessage(String message) {
         String tempkey = root.push().getKey();
         DatabaseReference messageRoot = root.child(tempkey);
-        Map<String,Object> map2 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
         map2.put("name", getName());
         map2.put("message", message);
         map2.put("who", getId());

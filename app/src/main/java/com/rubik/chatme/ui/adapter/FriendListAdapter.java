@@ -58,7 +58,7 @@ public class FriendListAdapter extends
         return userList.size();
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.adapter_friend_list_avatar)
         ImageView ivAvatar;
 
@@ -69,6 +69,7 @@ public class FriendListAdapter extends
         TextView tvGender;
 
         private int pos;
+
         public void setPos(int pos) {
             this.pos = pos;
         }

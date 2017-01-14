@@ -14,14 +14,14 @@ public class BaseDao {
     protected static <T> Observable<T> makeObservable(final Callable<T> func) {
         return Observable.create(
                 new ObservableOnSubscribe<T>() {
-            @Override
-            public void subscribe(ObservableEmitter<T> e) throws Exception {
-                try {
-                    e.onNext(func.call());
-                } catch(Exception exp) {
-                    exp.printStackTrace();
-                }
-            }
-        });
+                    @Override
+                    public void subscribe(ObservableEmitter<T> e) throws Exception {
+                        try {
+                            e.onNext(func.call());
+                        } catch (Exception exp) {
+                            exp.printStackTrace();
+                        }
+                    }
+                });
     }
 }

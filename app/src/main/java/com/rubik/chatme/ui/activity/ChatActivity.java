@@ -93,7 +93,7 @@ public class ChatActivity extends BaseActivity {
                     message.setType(MessageAdapter.MSG_FRIEND);
                 }
                 adapter.add(message);
-                recyclerView.scrollToPosition(messageList.size()-1);
+                recyclerView.scrollToPosition(messageList.size() - 1);
             }
         });
     }

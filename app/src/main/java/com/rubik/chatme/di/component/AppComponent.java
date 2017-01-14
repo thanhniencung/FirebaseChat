@@ -13,11 +13,13 @@ import dagger.Component;
  * Created by kiennguyen on 1/2/17.
  */
 @Singleton
-@Component (
+@Component(
         modules = AppModule.class
 )
 public interface AppComponent {
     void inject(LoginActivity loginActivity);
+
     void inject(ChatActivity chatActivity);
+
     void inject(FriendListActivity friendListActivity);
 }

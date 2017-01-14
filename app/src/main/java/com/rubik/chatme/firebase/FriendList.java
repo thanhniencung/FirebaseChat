@@ -69,25 +69,25 @@ public class FriendList extends FirebaseDB {
     public void addFriend(final User user) {
         friendListRoot.child(user.getId())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    DatabaseReference messageRoot = friendListRoot.child(user.getId());
-                    Map<String,Object> map2 = new HashMap<>();
-                    map2.put("name", user.getName());
-                    map2.put("avatar", user.getAvatar());
-                    map2.put("gender", user.getGender());
-                    map2.put("email", user.getEmail());
-                    map2.put("id", user.getId());
-                    messageRoot.updateChildren(map2);
-                }
-            }
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            DatabaseReference messageRoot = friendListRoot.child(user.getId());
+                            Map<String, Object> map2 = new HashMap<>();
+                            map2.put("name", user.getName());
+                            map2.put("avatar", user.getAvatar());
+                            map2.put("gender", user.getGender());
+                            map2.put("email", user.getEmail());
+                            map2.put("id", user.getId());
+                            messageRoot.updateChildren(map2);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
     }
 }

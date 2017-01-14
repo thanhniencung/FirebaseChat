@@ -19,8 +19,6 @@ import com.rubik.chatme.helper.ViewHelper;
 import com.rubik.chatme.model.FbUser;
 
 import org.json.JSONObject;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.util.Arrays;
 
@@ -36,7 +34,7 @@ import io.reactivex.subscribers.DefaultSubscriber;
  * Created by kiennguyen on 1/1/17.
  */
 
-public class LoginActivity extends  BaseActivity implements
+public class LoginActivity extends BaseActivity implements
         FacebookCallback<LoginResult> {
 
     private CallbackManager callbackManager;
@@ -85,9 +83,9 @@ public class LoginActivity extends  BaseActivity implements
             return false;
         }
         if (fbUser.fbId.equals(null) ||
-            fbUser.email.equals(null) ||
-            fbUser.gender.equals(null) ||
-            fbUser.name.equals(null)) {
+                fbUser.email.equals(null) ||
+                fbUser.gender.equals(null) ||
+                fbUser.name.equals(null)) {
             return false;
         }
         return true;
@@ -117,11 +115,11 @@ public class LoginActivity extends  BaseActivity implements
                     public void onCompleted(JSONObject data, GraphResponse response) {
                         fbUserDao.insert(parseFbUSer(data))
                                 .subscribe(new Consumer<Long>() {
-                            @Override
-                            public void accept(Long aLong) throws Exception {
-                                gotoFriendListActivity();
-                            }
-                        });
+                                    @Override
+                                    public void accept(Long aLong) throws Exception {
+                                        gotoFriendListActivity();
+                                    }
+                                });
                     }
                 });
         Bundle parameters = new Bundle();
