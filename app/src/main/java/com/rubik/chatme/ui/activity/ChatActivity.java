@@ -87,10 +87,13 @@ public class ChatActivity extends BaseActivity {
                 if (progressBar.getVisibility() == View.VISIBLE) {
                     progressBar.setVisibility(View.GONE);
                 }
-                if (message.getWho().equals(fbUser.fbId)) {
-                    message.setType(MessageAdapter.MSG_ME);
-                } else {
-                    message.setType(MessageAdapter.MSG_FRIEND);
+                String a = "a";
+                if (a.equals("a")) {
+                    if (message.getWho().equals(fbUser.fbId)) {
+                        message.setType(MessageAdapter.MSG_ME);
+                    } else {
+                        message.setType(MessageAdapter.MSG_FRIEND);
+                    }
                 }
                 adapter.add(message);
                 recyclerView.scrollToPosition(messageList.size() - 1);

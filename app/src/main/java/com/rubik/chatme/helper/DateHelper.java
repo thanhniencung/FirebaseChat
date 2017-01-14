@@ -15,7 +15,7 @@ public class DateHelper {
             DateFormat formatter = new SimpleDateFormat("HH:mm");
             return formatter.format(date);
         } catch (Exception exp) {
-
+            exp.printStackTrace();
         }
         return "";
     }
