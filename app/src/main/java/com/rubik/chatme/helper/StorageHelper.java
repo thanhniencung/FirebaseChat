@@ -8,6 +8,7 @@ import com.rubik.chatme.ChatMeApplication;
  * Created by kiennguyen on 1/2/17.
  */
 
+@SuppressWarnings("unused")
 public class StorageHelper {
     private final static String PREF_FILE = "PREF";
 
