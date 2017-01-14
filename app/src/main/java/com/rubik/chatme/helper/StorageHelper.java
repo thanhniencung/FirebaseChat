@@ -14,7 +14,8 @@ public class StorageHelper {
 
     /**
      * Set a string shared preference
-     *
+     * testing function
+     * 
      * @param key   - Key to set shared preference
      * @param value - Value for the key
      */
