@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.rubik.chatme.R;
 import com.rubik.chatme.dao.FbUserDao;
@@ -40,6 +43,8 @@ public class ChatActivity extends BaseActivity {
     @BindView(R.id.fragment_chat_enterMsg)
     EditText editMessage;
 
+    @BindView(R.id.fragment_chat_progress)
+    ProgressBar progressBar;
 
     @BindView(R.id.fragment_chat_recyclerView)
     RecyclerView recyclerView;
@@ -68,7 +73,6 @@ public class ChatActivity extends BaseActivity {
 
         getSupportActionBar().setTitle(friend.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         chatRoom.init(me, friend);
 
@@ -80,6 +84,9 @@ public class ChatActivity extends BaseActivity {
         chatRoom.asObservable().subscribe(new Consumer<Message>() {
             @Override
             public void accept(Message message) throws Exception {
+                if (progressBar.getVisibility() == View.VISIBLE) {
+                    progressBar.setVisibility(View.GONE);
+                }
                 if (message.getWho().equals(fbUser.fbId)) {
                     message.setType(MessageAdapter.MSG_ME);
                 } else {
@@ -103,5 +110,15 @@ public class ChatActivity extends BaseActivity {
     @Override
     public int getLayout() {
         return R.layout.activity_chat;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 }

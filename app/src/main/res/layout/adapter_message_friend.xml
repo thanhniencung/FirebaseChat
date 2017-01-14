@@ -28,7 +28,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/adapter_message_time"
             android:textSize="9sp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"

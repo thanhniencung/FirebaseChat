@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.rubik.chatme.R;
 import com.rubik.chatme.helper.CircleTransform;
+import com.rubik.chatme.helper.DateHelper;
 import com.rubik.chatme.helper.ImageLoader;
 import com.rubik.chatme.model.Message;
 import com.rubik.chatme.model.User;
@@ -74,7 +75,7 @@ public class MessageAdapter extends
                     holder.ivAvatar, new CircleTransform());
         }
         holder.tvMessage.setText(messageList.get(position).getMessage());
-
+        holder.tvTime.setText(DateHelper.parseDate(messageList.get(position).getTime()));
     }
 
     @Override
@@ -89,6 +90,9 @@ public class MessageAdapter extends
 
         @BindView(R.id.adapter_message_text)
         TextView tvMessage;
+
+        @BindView(R.id.adapter_message_time)
+        TextView tvTime;
 
         @BindView(R.id.adapter_message_bubble)
         RelativeLayout rlBubble;

@@ -19,6 +19,8 @@ import com.rubik.chatme.helper.ViewHelper;
 import com.rubik.chatme.model.FbUser;
 
 import org.json.JSONObject;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 import java.util.Arrays;
 
@@ -27,6 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subscribers.DefaultSubscriber;
 
 
 /**
@@ -56,6 +59,38 @@ public class LoginActivity extends  BaseActivity implements
         ViewHelper.setStateToView(findViewById(R.id.btn_login_fb));
         ImageLoader.loadImageWithTransform(R.drawable.icon_login,
                 ivBgLogin, new CircleTransform());
+
+        fbUserDao.getFbUSer().subscribe(new DefaultSubscriber<FbUser>() {
+            @Override
+            public void onNext(FbUser fbUser) {
+                if (verifyUser(fbUser)) {
+                    gotoFriendListActivity();
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    private boolean verifyUser(FbUser fbUser) {
+        if (fbUser == null) {
+            return false;
+        }
+        if (fbUser.fbId.equals(null) ||
+            fbUser.email.equals(null) ||
+            fbUser.gender.equals(null) ||
+            fbUser.name.equals(null)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -84,9 +119,7 @@ public class LoginActivity extends  BaseActivity implements
                                 .subscribe(new Consumer<Long>() {
                             @Override
                             public void accept(Long aLong) throws Exception {
-                                startActivity(new Intent(LoginActivity.this,
-                                        FriendListActivity.class));
-                                finish();
+                                gotoFriendListActivity();
                             }
                         });
                     }
@@ -96,6 +129,12 @@ public class LoginActivity extends  BaseActivity implements
         request.setParameters(parameters);
         request.executeAsync();
 
+    }
+
+    private void gotoFriendListActivity() {
+        startActivity(new Intent(LoginActivity.this,
+                FriendListActivity.class));
+        finish();
     }
 
     private FbUser parseFbUSer(JSONObject data) {

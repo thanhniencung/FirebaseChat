@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.rubik.chatme.R;
 import com.rubik.chatme.dao.FbUserDao;
@@ -36,6 +38,9 @@ public class FriendListActivity extends BaseActivity {
     @BindView(R.id.activity_friend_list_recycler)
     RecyclerView recyclerView;
 
+    @BindView(R.id.activity_friend_progress)
+    ProgressBar progressBar;
+
     private List<User> userList = new ArrayList<>();
     private FriendListAdapter adapter;
     private FbUser fbUser;
@@ -66,6 +71,9 @@ public class FriendListActivity extends BaseActivity {
         friendList.asObservable().subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) throws Exception {
+                if (progressBar.getVisibility() == View.VISIBLE) {
+                    progressBar.setVisibility(View.GONE);
+                }
                 if (!fbUser.fbId.equals(user.getId())) {
                     adapter.add(user);
                 }
