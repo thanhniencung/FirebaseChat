@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
-
+-
         setContentView(getLayout());
     }
 
