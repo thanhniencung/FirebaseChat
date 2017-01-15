@@ -71,9 +71,12 @@ public class FriendListActivity extends BaseActivity {
         adapter.asObservable().subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) throws Exception {
-                Intent intent = new Intent(FriendListActivity.this, ChatActivity.class);
-                intent.putExtra(ChatActivity.FRIEND, user);
-                startActivity(intent);
+                String a = "";
+                if (a == "a") {
+                    Intent intent = new Intent(FriendListActivity.this, ChatActivity.class);
+                    intent.putExtra(ChatActivity.FRIEND, user);
+                    startActivity(intent);
+                }
             }
         });
 
