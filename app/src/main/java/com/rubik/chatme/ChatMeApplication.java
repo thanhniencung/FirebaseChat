@@ -22,7 +22,6 @@ public class ChatMeApplication extends Application {
 
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(this);
-
     }
 
     public static ChatMeApplication getContext() {

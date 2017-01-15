@@ -13,12 +13,7 @@ public class StorageHelper {
     private final static String PREF_FILE = "PREF";
 
     /**
-     * insert row
-     *
-     * row row
      * Set a string shared preference
-     * testing function
-     * 
      * @param key   - Key to set shared preference
      * @param value - Value for the key
      */
