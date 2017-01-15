@@ -67,6 +67,15 @@ public class FriendListActivity extends BaseActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        adapter.asObservable().subscribe(new Consumer<User>() {
+            @Override
+            public void accept(User user) throws Exception {
+                Intent intent = new Intent(FriendListActivity.this, ChatActivity.class);
+                intent.putExtra(ChatActivity.FRIEND, user);
+                startActivity(intent);
+            }
+        });
+
         friendList.addFriend(FirebaseHelper.setupFirebaseUser(fbUser));
         friendList.asObservable().subscribe(new Consumer<User>() {
             @Override
@@ -77,15 +86,6 @@ public class FriendListActivity extends BaseActivity {
                 if (!fbUser.fbId.equals(user.getId())) {
                     adapter.add(user);
                 }
-            }
-        });
-
-        adapter.asObservable().subscribe(new Consumer<User>() {
-            @Override
-            public void accept(User user) throws Exception {
-                Intent intent = new Intent(FriendListActivity.this, ChatActivity.class);
-                intent.putExtra(ChatActivity.FRIEND, user);
-                startActivity(intent);
             }
         });
     }
