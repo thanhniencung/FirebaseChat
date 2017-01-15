@@ -21,12 +21,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // intercept font for app
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
-        //setup ButterKnife for all activity
+
+        // setup ButterKnife
         setContentView(getLayout());
         ButterKnife.bind(this);
     }
