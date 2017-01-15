@@ -67,6 +67,7 @@ public class FriendListActivity extends BaseActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        // listener firebase
         adapter.asObservable().subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) throws Exception {
