@@ -26,8 +26,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
-        //setup ButterKnife for all activity
-        setContentView(getLayout());
+        -
+                setContentView(getLayout());
         ButterKnife.bind(this);
     }
 
